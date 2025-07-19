@@ -319,13 +319,12 @@ dataLoaded().then(() => {
 
     function styleCommandContext(element, commandIdentifier) {
         // set defaults
-        element.style.setProperty('this-background-color', commandStyles.default[useAppearance].background_color)
-        element.style.setProperty('this-text-color', commandStyles.default[useAppearance].color)
+        element.style.setProperty('--this-background-color', commandStyles.default[useAppearance].background_color)
+        element.style.setProperty('--this-text-color', commandStyles.default[useAppearance].color)
 
         // look for specific styling
         const dictionaryDefinition = dictionary.commands.find(cmd => cmd.identifier === commandIdentifier)
         var commandStyle
-        console.log(commandStyles.commands[dictionaryDefinition.identifier])
         if (commandStyles.commands[dictionaryDefinition.identifier] || commandStyles.types[dictionaryDefinition.type]) {
             if (commandStyles.commands[dictionaryDefinition.identifier]) {
                 commandStyle = commandStyles.commands[dictionaryDefinition.identifier]
@@ -337,7 +336,6 @@ dataLoaded().then(() => {
                 (useAppearance === "light" && commandStyle?.light) ||
                 commandStyle
             )
-            console.log("style", style, ("background_color" in style))
             if ("background_color" in style) { element.style.setProperty('--this-background-color', style.background_color) }
             if ("color" in style) { element.style.setProperty('--this-text-color', style.color) }
         } else {

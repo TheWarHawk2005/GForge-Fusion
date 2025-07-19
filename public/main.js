@@ -4,7 +4,7 @@
 // import core scripts
 import { gcore } from './core/gcore.js'
 window.gcore = gcore
-window.useAppearance = 'light'
+window.useAppearance = 'dark'
 
 // handle async data loading
 export const dataLoaded = async function () {
@@ -25,4 +25,4 @@ export const dataLoaded = async function () {
     ]);
 }
 
-//"#d7dae5ff"
+//"#cfd2dfff"
