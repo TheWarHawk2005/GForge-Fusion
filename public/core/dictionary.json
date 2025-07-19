@@ -1,0 +1,80 @@
+{
+    "version": "0.0.1",
+    "commands": [
+        {
+            "label": "movement mode: rapid positioning",
+            "identifier": "set_movement_rapid",
+            "type": "positioning_stateful",
+            "web_template": ["set movement mode: rapid positioning"],
+            "output": ["G00"]
+        },
+        {
+            "label": "movement mode: linear interpolation",
+            "identifier": "set_movement_linear_interpolation",
+            "type": "positioning_stateful",
+            "web_template": ["set movement mode: linear interpolation", "feedrate:{f}"],
+            "output": ["G01", "F{f}"],
+            "params": {
+                "f": {
+                    "type": "decimal"
+                }
+            }
+        },
+        {
+            "label": "movement mode: circular interpolation",
+            "identifier": "set_movement_circular",
+            "type": "positioning_stateful",
+            "web_template": ["set movement mode: circular interpolation", "direction:{a}", "feedrate:{f}"],
+            "output": ["{a}", "F{f}"],
+            "params": {
+                "a": {
+                    "type": "choice",
+                    "options": [
+                        {
+                            "label": "clockwise",
+                            "value": "G02"
+                        },
+                        {
+                            "label": "counter-clockwise",
+                            "value": "G03"
+                        }
+                    ]
+                },
+                "f": {
+                    "type": "decimal"
+                }
+            }
+
+        },
+        {
+            "label": "move to coordinate",
+            "identifier": "move_to_coord",
+            "type": "positional",
+            "web_template": ["move to coordinate", "x:{x}", "y:{y}", "z:{z}"],
+            "output": ["X{x}", "Y{y}", "Z{z}"],
+            "params": {
+                "x": {
+                    "type": "decimal"
+                },
+                "y": {
+                    "type": "decimal"
+                },
+                "z": {
+                    "type": "decimal"
+                }
+            }
+        },
+        {
+            "label": "comment",
+            "identifier": "comment",
+            "type": "no_op",
+            "web_template": ["comment:", "{a}"],
+            "output": ["({a})"],
+            "params": {
+                "a": {
+                    "type": "decimal"
+                }
+            }
+        }
+    ]
+}

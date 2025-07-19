@@ -1,0 +1,10 @@
+{
+    "version": "v0.0.1",
+    "dictionary": "./core/dictionary.json",
+    "web_styles": "./web_styles.json",
+    "command_styles": "./core/command_styles.json",
+
+    "extensions":{
+
+    }
+}

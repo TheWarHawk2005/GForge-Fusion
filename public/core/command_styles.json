@@ -1,0 +1,40 @@
+{
+    "default": {
+        "dark": {
+            "color": "white",
+            "background_color":"inherit"
+        },
+        "light": {
+            "color": "black",
+            "background_color":"red"
+        }
+    },
+    "types": {
+        "stateful": {
+            "background_color": "",
+            "color": "",
+            "icon": "command_stateful.png"
+        },
+        "positional": {
+            "background_color": "",
+            "color": "",
+            "icon": "command_positional.png"
+        }
+    },
+    "commands": {
+        "set_movement_rapid": {
+            "dark": {
+                "background_color": "",
+                "color": "rgb(255, 203, 139)"
+            },
+            "light": {
+                "background_color": "rgb(255, 203, 139)",
+                "color": ""
+            }
+        },
+        "comment": {
+            "background_color":"#00ffee10",
+            "color": "#00fbff"
+        }
+    }
+}

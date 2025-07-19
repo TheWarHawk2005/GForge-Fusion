@@ -1,0 +1,314 @@
+:root {
+    /** Colors */
+    /* Backgrounds */
+    --background-primary: #171717;
+    --background-secondary: #212124;
+    --background-tertiary: #2b2b2f;
+
+    /* Text */
+    --text-primary: #d4d4d4;
+    --text-secondary: #aaaaaa;
+    --text-disabled: #666666;
+    --text-selection-background: blue;
+    --text-selection-color: red;
+
+    /* Accent Colors */
+    --accent-primary: #e88b49;
+    --accent-secondary: #4d83a1;
+    --accent-success: #72a547;
+    --accent-warning: #f8cf2c;
+    --accent-error: #c45252;
+
+    /* Borders & Dividers */
+    --border-primary: #444444;
+    --border-focus: var(--accent-primary);
+
+    /* Icons */
+    --icon-brightness: 100%;
+    --icon-default: var(--text-primary);
+    --icon-hover: var(--accent-primary);
+    --icon-alert: var(--accent-error);
+    --icon-success: var(--accent-success);
+    --icon-warning: var(--accent-warning);
+
+    /* Shadows */
+    --shadow-default: rgba(0, 0, 0, 0.7);
+
+    /* Overlays / Transparency */
+    --overlay-dark: rgba(0, 0, 0, 0.5);
+    --overlay-light: rgba(255, 255, 255, 0.05);
+
+    /* Misc */
+    --context-selected-outline: solid 2px #2a4656;
+
+    /** Layout */
+    --nav-height: 3rem;
+    --workspace-width: 100vw;
+    --workspace-height: calc(100vh - var(--nav-height));
+
+    --toolbox-width: 20vw;
+    --output-display-width: 20vw;
+    --workbench-width: calc(var(--workspace-width) - var(--toolbox-width) - var(--output-display-width));
+
+    --command-container-height: 3rem;
+    --outline-border-widths: 2px;
+}
+
+@font-face {
+    font-family: 'Cascadia Code';
+    src: url(./assets/Cascadia_Code/CascadiaCode-VariableFont_wght.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Cascadia Code', Courier, monospace;
+    font-weight: 400;
+    font-size: 12px;
+    scrollbar-color: #ffffff6b #ffffff00;
+}
+
+body {
+    background-color: var(--background-primary);
+    margin: 0px;
+}
+
+body::selection {
+    background-color: var(--text-selection-background);
+    color: var(--text-selection-color);
+}
+
+nav {
+    height: var(--nav-height);
+    background-color: var(--background-tertiary);
+}
+
+#appearance-toggle-img {
+    width: 2em;
+}
+
+.icon {
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Workspace                                 */
+/* -------------------------------------------------------------------------- */
+
+#workspace-main {
+    display: flex;
+    width: var(--workspace-width);
+    height: var(--workspace-height);
+}
+
+#workspace-container {
+    display: contents;
+    /* allow direct flex children */
+}
+
+#toolbox:focus,
+#workbench:focus {
+    outline: none;
+}
+
+/* --------------------------------- Toolbox -------------------------------- */
+
+#toolbox {
+    width: var(--toolbox-width);
+    min-width: var(--output-display-sidebar-width);
+    height: 100%;
+    background-color: var(--background-primary);
+    padding: 1rem;
+    float: none;
+}
+
+/* -------------------------------- Workbench ------------------------------- */
+
+#workbench {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    background-color: var(--background-secondary);
+    overflow: auto;
+    float: none;
+    width: var(--workbench-width);
+}
+
+#commands-container {
+    width: 100%;
+    padding-bottom: 2rem;
+}
+
+/* ----------------------------- Output Display ----------------------------- */
+
+#output-display {
+    width: var(--output-display-width);
+    height: var(--workspace-height);
+    display: flex;
+    flex-direction: row;
+
+    box-sizing: border-box;
+    padding: 1rem;
+
+    background-color: var(--background-primary);
+    color: var(--text-secondary);
+}
+
+#output-display[data-collapsed="false"] {
+    display: block;
+}
+
+#output-display[data-collapsed="true"] {
+    display: none;
+}
+
+#output-display-container {
+    flex: 1 1 0;
+    height: 100%;
+    width: 100%;
+}
+
+.raw-instruction {
+    width: 100%;
+    display: block;
+    padding: .25rem;
+}
+
+.gcode-fragment {
+    margin-right: 1rem;
+}
+
+/* ------------------ Toolbox blocks and Workbench commands ----------------- */
+
+.gcore-label {
+    color: var(--text-secondary);
+    padding: .25rem;
+    cursor: pointer;
+    transition: background-color .15s;
+    display: flex;
+    align-content: center;
+}
+
+.gcore-label:hover {
+    background-color: var(--background-tertiary);
+}
+
+.gcore-label-icon {
+    height: 1em;
+    width: 1em;
+    margin-right: .5rem;
+    filter: brightness(.592);
+}
+
+.command-container {
+    display: grid;
+    width: 100%;
+    grid-template-areas: "reorder-commands-container gcore-command command-context-actions";
+    min-height: var(--command-container-height);
+    border: solid transparent var(--outline-border-widths);
+    padding: .25rem .5rem .25rem .5rem;
+    grid-auto-flow: column;
+    grid-template-columns: max-content auto max-content;
+    gap: 1rem;
+    align-items: center;
+    text-wrap: "wrap";
+
+    /* Programmatically generated styles-- adjust in command_styles.json */
+    color: var(--this-text-color); 
+    background-color: var(--this-background-color);
+
+    img {
+        height: 1em;
+    }
+}
+
+.command-container:hover:not(.context-selected) {
+    border-color: var(--background-tertiary);
+    border-style: solid;
+}
+
+/* Selected commands: bloated to ensure browser compatibility */
+.context-selected {
+    border-left: var(--context-selected-outline);
+    border-right: var(--context-selected-outline);
+    box-sizing: border-box;
+}
+
+.context-selected-top {
+    border-top: var(--context-selected-outline)
+}
+
+.context-selected-bottom {
+    border-bottom: var(--context-selected-outline);
+    box-shadow: 0px 3px 2px -3px var(--shadow-default);
+}
+
+/* gcore commands */
+.gcore-command {
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, max-content);
+    gap: 1rem;
+    justify-content: start;
+    align-items: center;
+}
+
+.command-container:hover .reorder-commands-container,
+.command-container:hover .command-context-actions {
+    visibility: visible;
+}
+
+.gcore-command-section {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.gcore-command-section.includes-input {
+    background-color: inherit;
+    padding: 0px .5rem 0px .5rem;
+    filter: brightness(150%);
+    backdrop-filter: brightness(50%);
+}
+
+.gcore-command-input {
+    width: auto;
+    max-height: 100%;
+
+    background-color: transparent;
+    color: var(--text-primary);
+    min-width: 2rem;
+    height: 2rem;
+    border: none;
+    border-bottom: solid 2px var(--text-secondary);
+    vertical-align: middle;
+}
+
+.gcore-command-input:focus {
+    outline: none;
+}
+
+.gcore-command-input-mirror {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: pre;
+    font: inherit;
+}
+
+
+.reorder-commands-container {
+    visibility: hidden;
+
+    img {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.command-context-actions {
+    visibility: hidden;
+    margin-left: auto;
+}

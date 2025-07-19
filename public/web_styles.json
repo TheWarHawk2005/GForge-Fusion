@@ -1,0 +1,35 @@
+{
+    "body": {
+        "background_primary": {
+            "light": "#fafafa",
+            "dark": "#171717"
+        },
+        "background_secondary": {
+            "light": "#e9eaefff",
+            "dark": "#212124"
+        },
+        "background_tertiary": {
+            "light": "#d7dae5ff",
+            "dark": "#2b2b2f"
+        },
+        "text_primary": {
+            "light": "#1e1e1e",
+            "dark": "#d4d4d4"
+        },
+        "text_secondary": {
+            "light": "#383838",
+            "dark": "#aaaaaa"
+        },
+        "text_disabled": {
+            "light": "#929292",
+            "dark":"#666666"
+        },
+        "text_selection_background": "#4d83a1",
+        "text_selection_color": "white",
+        "accent_primary": "#e88b49",
+        "accent_secondary": "#4d83a1",
+        "accent_error": "#72a547",
+        "accent_success": "#f8cf2c",
+        "accent_warning": "#c45252"
+    }
+}
