@@ -30,6 +30,7 @@
         "accent_secondary": "#4d83a1",
         "accent_error": "#72a547",
         "accent_success": "#f8cf2c",
-        "accent_warning": "#c45252"
+        "accent_warning": "#c45252",
+        "context_selected_outline": "white"
     }
 }

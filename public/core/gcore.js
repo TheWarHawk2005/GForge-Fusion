@@ -44,12 +44,13 @@ const gcore = {
                             inputMirrorElement.textContent = inputElement.value || ' '
                             inputElement.style.width = `calc(${inputMirrorElement.offsetWidth}px + 3em)`
                         }
+
                         // Set up resizing behavior
                         inputElement.addEventListener('input', resizeToFit)
                         inputElement.addEventListener('keydown', event => { if (event.key === 'Enter') event.target.blur() })
                         lineContainer.appendChild(inputElement)
                         lineContainer.appendChild(inputMirrorElement)
-                        resizeToFit()
+                        requestAnimationFrame(resizeToFit)
                     } else if (commandDefinition.params[key].type == 'choice') {
                         const inputElement = document.createElement('SELECT')
                         inputElement.classList = 'gcore-command-input'
@@ -85,7 +86,7 @@ const gcore = {
         divElement.dataset.commandType = commandDefinition.type
 
         let iconElement = document.createElement('IMG')
-        iconElement.classList = 'gcore-label-icon'
+        iconElement.classList = 'gcore-label-icon smart-icon'
 
         let spanElement = document.createElement('SPAN')
         spanElement.classList = 'gcore-label-text'

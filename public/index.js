@@ -3,10 +3,12 @@ import { dataLoaded } from './main.js';
 dataLoaded().then(() => {
     /* ------------------------- Set up global functions ------------------------ */
     window.deleteCommandContext = deleteCommandContext
+    window.copyCommandContext = copyCommandContext
     window.moveElementDown = moveElementDown
     window.moveElementUp = moveElementUp
     window.setCSSVariables = setCSSVariables
     window.toggleAppearance = toggleAppearance
+    window.handleSmartIcons = handleSmartIcons
 
     const commandStyles = window.commandStyles
 
@@ -56,8 +58,8 @@ dataLoaded().then(() => {
         const newReorder = document.createElement('DIV')
         newReorder.classList = 'reorder-commands-container'
         newReorder.innerHTML = `
-        <img src=${reorderUpImg} onclick="moveElementUp('${commandContextUUID}')">
-        <img src=${reorderDownImg} onclick="moveElementDown('${commandContextUUID}')">`
+        <img src=${reorderUpImg} class="smart-icon" onclick="moveElementUp('${commandContextUUID}')">
+        <img src=${reorderDownImg} class="smart-icon" onclick="moveElementDown('${commandContextUUID}')">`
 
         // main command- generate and style
         const newCommand = gcore.generateElement(dictionaryDefinition, params)
@@ -67,8 +69,8 @@ dataLoaded().then(() => {
         newActions.classList = 'command-context-actions'
         newActions.innerHTML = `
             <img src=${img}>
-            <img class="copy-command-context" onclick="copyCommandContext(['${commandContextUUID}'])" src=${copyCommandImg}>
-            <img class="delete-command-context" onclick="deleteCommandContext(['${commandContextUUID}'])" src=${deleteCommandImg}>`
+            <img class="copy-command-context smart-icon" onclick="copyCommandContext(['${commandContextUUID}'])" src=${copyCommandImg}>
+            <img class="delete-command-context smart-icon" onclick="deleteCommandContext(['${commandContextUUID}'])" src=${deleteCommandImg}>`
 
         // tie it all together
         newContext.appendChild(newReorder)
@@ -168,6 +170,7 @@ dataLoaded().then(() => {
             shortformData.commands.push(gcore.elementToShortformData(elementId)) //get shortform JSON definition for each Id
         })
         Clipboard = shortformData // copy array to clipboard
+        console.log(shortformData)
     }
 
     function pasteCommandContext(afterElement) {
@@ -265,6 +268,7 @@ dataLoaded().then(() => {
         useAppearance == 'dark' ? useAppearance = 'light' : useAppearance = 'dark'
         appearanceToggleImg.src = `./assets/ui/appearance_${useAppearance}.png`
         setCSSVariables()
+        handleSmartIcons()
     }
 
     function renderAllCodeOutput() {
@@ -341,5 +345,82 @@ dataLoaded().then(() => {
         } else {
             console.warn(`cannot find styling for type "${dictionaryDefinition.identifier}"`)
         }
+        handleSmartIcons()
+    }
+
+    function handleSmartIcons() {
+        function luminance(color) {
+            const rgb = color.map(function (c) {
+                c /= 255 // to 0-1 range
+                return c < 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+            })
+            return (
+                21.26 * rgb[0] + // red
+                71.52 * rgb[1] + // green
+                7.22 * rgb[2]
+            ) // blue
+        }
+
+        function getRGBColor(colorStr) {
+            // Normalize input
+            if (typeof colorStr !== 'string') return null
+            colorStr = colorStr.trim().toLowerCase()
+
+            // RGB or RGBA format
+            const rgbMatch = colorStr.match(/rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})/)
+            if (rgbMatch) {
+                const [r, g, b] = rgbMatch.slice(1).map(Number)
+                return [r, g, b]
+            }
+
+            // Hex format
+            const hexMatch = colorStr.match(/^#([a-f0-9]{3}|[a-f0-9]{6})$/i)
+            if (hexMatch) {
+                let hex = hexMatch[1]
+                if (hex.length === 3) {
+                    hex = hex.split('').map(c => c + c).join('')
+                }
+                const r = parseInt(hex.substring(0, 2), 16)
+                const g = parseInt(hex.substring(2, 4), 16)
+                const b = parseInt(hex.substring(4, 6), 16)
+                return [r, g, b]
+            }
+
+            // Named CSS color (use a dummy DOM element)
+            const dummy = document.createElement('div')
+            dummy.style.color = colorStr
+            document.body.appendChild(dummy)
+
+            const computedColor = getComputedStyle(dummy).color
+            document.body.removeChild(dummy)
+
+            const namedMatch = computedColor.match(/rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)/)
+            if (namedMatch) {
+                return namedMatch.slice(1).map(Number)
+            }
+            return null
+        }
+
+        function getNearestBackgroundColor(element) {
+            while (element) {
+                const bg = getComputedStyle(element).backgroundColor
+                // Skip transparent backgrounds
+                if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+                    return bg
+                }
+                element = element.parentElement
+            }
+            return null // Nothing found
+        }
+
+        document.querySelectorAll('.smart-icon').forEach(element => {
+            const bgColor = getNearestBackgroundColor(element)
+            const testColor = getRGBColor(bgColor)
+            if (luminance(testColor) > 30) {
+                element.style.filter = `brightness(${0})`
+            } else {
+                element.style.filter = `brightness(${1})`
+            }
+        })
     }
 })

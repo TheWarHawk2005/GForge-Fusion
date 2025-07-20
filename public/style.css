@@ -39,7 +39,7 @@
     --overlay-light: rgba(255, 255, 255, 0.05);
 
     /* Misc */
-    --context-selected-outline: solid 2px #2a4656;
+    --context-selected-outline: #2a4656;
 
     /** Layout */
     --nav-height: 3rem;
@@ -86,7 +86,8 @@ nav {
     width: 2em;
 }
 
-.icon {
+.smart-icon {
+    opacity: 75%;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -194,9 +195,7 @@ nav {
 .gcore-label-icon {
     height: 1em;
     width: 1em;
-    margin-right: .5rem;
-    filter: brightness(.592);
-}
+    margin-right: .5rem;}
 
 .command-container {
     display: grid;
@@ -227,17 +226,18 @@ nav {
 
 /* Selected commands: bloated to ensure browser compatibility */
 .context-selected {
-    border-left: var(--context-selected-outline);
-    border-right: var(--context-selected-outline);
+    
+    border-left: solid 2px var(--context-selected-outline);
+    border-right: solid 2px var(--context-selected-outline);
     box-sizing: border-box;
 }
 
 .context-selected-top {
-    border-top: var(--context-selected-outline)
+    border-top: solid 2px var(--context-selected-outline)
 }
 
 .context-selected-bottom {
-    border-bottom: var(--context-selected-outline);
+    border-bottom: solid 2px var(--context-selected-outline);
     box-shadow: 0px 3px 2px -3px var(--shadow-default);
 }
 
@@ -269,8 +269,8 @@ nav {
     background-color: inherit;
     color: inherit;
     padding: 0px .5rem 0px .5rem;
-    filter: brightness(130%);
-    backdrop-filter: brightness(75%);
+    /* filter: brightness(130%); */
+    backdrop-filter: brightness(90%);
 }
 
 .gcore-command-input {

@@ -2,11 +2,11 @@
     "default": {
         "dark": {
             "color": "#d4d4d4",
-            "background_color":"inherit"
+            "background_color": "inherit"
         },
         "light": {
-            "color": "black",
-            "background_color":"inherit"
+            "color": "1e1e1e",
+            "background_color": "inherit"
         }
     },
     "types": {
@@ -24,8 +24,7 @@
                 "color": "rgb(255, 203, 139)"
             },
             "light": {
-                "background_color": "rgb(255, 203, 139)",
-                "color": ""
+                "background_color": "rgb(255, 203, 139)"
             }
         },
         "comment": {
@@ -33,7 +32,7 @@
                 "color": "#6978adff"
             },
             "light": {
-                "background_color": "#6978adff"
+                "background_color": "#9fabe0ff"
             }
         }
     }
