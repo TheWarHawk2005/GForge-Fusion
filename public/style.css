@@ -80,14 +80,18 @@ body::selection {
 nav {
     height: var(--nav-height);
     background-color: var(--background-tertiary);
+    padding: .5rem 1rem .5rem 1rem;
+    display: flex;
+    align-items: center;
 }
 
 #appearance-toggle-img {
     width: 2em;
+    height: 2em;
 }
 
 .smart-icon {
-    opacity: 75%;
+    opacity: 50%;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -131,6 +135,17 @@ nav {
     overflow: auto;
     float: none;
     width: var(--workbench-width);
+}
+
+#workbench-tips {
+    width: 100%;
+    text-align: center;
+    padding: .5rem;
+
+    span {
+        font-size: 10px;
+        color: var(--text-secondary)
+    }
 }
 
 #commands-container {
@@ -195,7 +210,8 @@ nav {
 .gcore-label-icon {
     height: 1em;
     width: 1em;
-    margin-right: .5rem;}
+    margin-right: .5rem;
+}
 
 .command-container {
     display: grid;
@@ -211,7 +227,7 @@ nav {
     text-wrap: "wrap";
 
     /* Programmatically generated styles-- adjust in command_styles.json */
-    color: var(--this-text-color); 
+    color: var(--this-text-color);
     background-color: var(--this-background-color);
 
     img {
@@ -226,7 +242,7 @@ nav {
 
 /* Selected commands: bloated to ensure browser compatibility */
 .context-selected {
-    
+
     border-left: solid 2px var(--context-selected-outline);
     border-right: solid 2px var(--context-selected-outline);
     box-sizing: border-box;
