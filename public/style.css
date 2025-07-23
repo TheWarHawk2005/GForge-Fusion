@@ -95,7 +95,8 @@ nav {
 }
 
 #export-options {
-    float: right;
+    margin-right: 0px;
+    margin-left: auto;
 }
 
 .cta {
@@ -105,9 +106,17 @@ nav {
     color: var(--accent-primary);
     cursor: pointer;
 }
+
 #post-out-nav-button {
     color: var(--background-tertiary);
     background-color: var(--accent-primary);
+    transition: background-color .2s;
+}
+
+#post-out-nav-button:hover {
+    background-color: inherit;
+    border: solid 2px var(--accent-primary);
+    color: var(--accent-primary);
 }
 
 /* -------------------------------------------------------------------------- */

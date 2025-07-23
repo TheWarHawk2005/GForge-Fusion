@@ -143,8 +143,8 @@ dataLoaded().then(() => {
     document.getElementById('post-out-nav-button').addEventListener("click", event => {
         const outputElement = document.getElementById('output-display')
         outputElement.dataset.collapsed = false
-        const gcodeData = outputElement.outerText
-        requestDownload(gcodeData)
+        const gcodeData = outputElement.outerText //TODO: this is a hackey way of getting the output data: regenerate it as a string instead.
+        requestDownload(gcodeData, "untitled.nc", "text")
     })
 
     /* ------------------------- Command Context Actions ------------------------ */
