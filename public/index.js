@@ -9,6 +9,7 @@ dataLoaded().then(() => {
     window.setCSSVariables = setCSSVariables
     window.toggleAppearance = toggleAppearance
     window.handleSmartIcons = handleSmartIcons
+    window.requestDownload = requestDownload
 
     const commandStyles = window.commandStyles
 
@@ -137,6 +138,13 @@ dataLoaded().then(() => {
     appearanceToggleImg.addEventListener('click', event => {
         console.log(useAppearance)
         toggleAppearance()
+    })
+
+    document.getElementById('post-out-nav-button').addEventListener("click", event => {
+        const outputElement = document.getElementById('output-display')
+        outputElement.dataset.collapsed = false
+        const gcodeData = outputElement.outerText
+        requestDownload(gcodeData)
     })
 
     /* ------------------------- Command Context Actions ------------------------ */
@@ -422,5 +430,23 @@ dataLoaded().then(() => {
                 element.style.filter = `brightness(${1})`
             }
         })
+    }
+
+    function requestDownload(data, filename, type) {
+        var file = new Blob([data], { type: type });
+        if (window.navigator.msSaveOrOpenBlob) // IE10+
+            window.navigator.msSaveOrOpenBlob(file, filename);
+        else { // Others
+            var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function () {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 0);
+        }
     }
 })

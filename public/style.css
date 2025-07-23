@@ -94,6 +94,22 @@ nav {
     opacity: 50%;
 }
 
+#export-options {
+    float: right;
+}
+
+.cta {
+    padding: .25rem;
+    background-color: inherit;
+    border: solid 2px var(--accent-primary);
+    color: var(--accent-primary);
+    cursor: pointer;
+}
+#post-out-nav-button {
+    color: var(--background-tertiary);
+    background-color: var(--accent-primary);
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                  Workspace                                 */
 /* -------------------------------------------------------------------------- */

@@ -24,5 +24,3 @@ export const dataLoaded = async function () {
             .then(cmdStyles => { window.commandStyles = cmdStyles; })
     ]);
 }
-
-//"#9fabe0ff"

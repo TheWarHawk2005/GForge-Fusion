@@ -24,6 +24,7 @@
             "light": "#929292",
             "dark":"#666666"
         },
+        "text_accent": "#000000",
         "text_selection_background": "#4d83a1",
         "text_selection_color": "white",
         "accent_primary": "#e88b49",

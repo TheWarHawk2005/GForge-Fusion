@@ -30,12 +30,13 @@ const gcore = {
                 if (match) {
                     lineContainer.classList.add('includes-input')
                     const key = match[1]
-                    if (commandDefinition.params[key].type == 'decimal') {
+                    if (commandDefinition.params[key].type == 'number' || commandDefinition.params[key].type == 'text') {
                         let inputMirrorElement = document.createElement('SPAN')
                         inputMirrorElement.classList = 'gcore-command-input-mirror'
                         inputMirrorElement.textContent = ' ' // Prevent width = 0 on load
 
                         let inputElement = document.createElement('INPUT')
+                        inputElement.type = commandDefinition.params[key].type
                         inputElement.classList = 'gcore-command-input'
                         inputElement.dataset.linkedParam = key
                         if (optionalParams && optionalParams[key]) { inputElement.value = optionalParams[key] } // if pasting or rendering an existing command, fill input values

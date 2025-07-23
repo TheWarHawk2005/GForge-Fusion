@@ -16,7 +16,7 @@
             "output": ["G01", "F{f}"],
             "params": {
                 "f": {
-                    "type": "decimal"
+                    "type": "number"
                 }
             }
         },
@@ -41,7 +41,7 @@
                     ]
                 },
                 "f": {
-                    "type": "decimal"
+                    "type": "number"
                 }
             }
 
@@ -54,13 +54,13 @@
             "output": ["X{x}", "Y{y}", "Z{z}"],
             "params": {
                 "x": {
-                    "type": "decimal"
+                    "type": "number"
                 },
                 "y": {
-                    "type": "decimal"
+                    "type": "number"
                 },
                 "z": {
-                    "type": "decimal"
+                    "type": "number"
                 }
             }
         },
@@ -72,7 +72,7 @@
             "output": ["({a})"],
             "params": {
                 "a": {
-                    "type": "decimal"
+                    "type": "text"
                 }
             }
         }
